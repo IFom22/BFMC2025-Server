@@ -1,41 +1,79 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.3.1'
-    id 'io.spring.dependency-management' version '1.1.5'
+    id 'idea'
+    id 'jacoco'
+//    id 'checkstyle'
+    id 'com.github.spotbugs' version "${spotbugs_version}"
+    id 'io.spring.dependency-management' version "${spring_dependency_management_version}"
 }
 
-group = 'ee.taltech'
-version = '0.0.1-SNAPSHOT'
+allprojects {
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'jacoco'
+//    apply plugin: 'checkstyle'
+    apply plugin: 'com.github.spotbugs'
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceCompatibility = java_version
+    targetCompatibility = java_version
+
+    repositories {
+        mavenCentral()
     }
-}
 
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = "UTF-8"
+        options.compilerArgs.add("-parameters")
     }
-}
 
-repositories {
-    mavenCentral()
-}
+    test {
+        useJUnitPlatform()
+        finalizedBy jacocoTestReport
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+    }
 
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.kafka:spring-kafka:3.2.2'
-    testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.springframework.security:spring-security-test'
-}
+    jacoco {
+        toolVersion = jacoco_version
+    }
 
-tasks.named('test') {
-    useJUnitPlatform()
+    jacocoTestReport {
+        dependsOn test
+        reports {
+            html.required = true
+            xml.required = true
+        }
+    }
+
+    check.dependsOn jacocoTestCoverageVerification
+
+//    checkstyle {
+//        toolVersion = checkstyle_version
+//        configFile = layout.buildDirectory.file("generated/checkstyle/checkstyle.xml").get().asFile
+//    }
+
+    spotbugs {
+        excludeFilter = file("${rootProject.projectDir}/spotbugs-exclude.xml")
+    }
+
+    spotbugsMain {
+        onlyAnalyze = ["ee.taltech.carbackend.*"]
+        reports {
+            html.required = true
+        }
+    }
+
+    spotbugsTest {
+        onlyAnalyze = ["ee.taltech.carbackend.*"]
+        reports {
+            html.required = true
+        }
+    }
+
+    wrapper {
+        gradleVersion = gradle_wrapper_version
+    }
 }

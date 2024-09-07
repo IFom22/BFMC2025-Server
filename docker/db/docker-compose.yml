@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  server-bd:
+    container_name: server-bd
+    image: postgres:13.3-alpine
+    restart: always
+    ports:
+      - "16485:5432"
+    environment:
+      - POSTGRES_PASSWORD=server_bfmc

@@ -1,0 +1,63 @@
+server:
+  servlet.context-path: /bfmc-server
+  port: 8214
+
+spring:
+  main:
+    banner_mode: "off"
+  application:
+    name: bfmc_server
+#    api-key: ${APPLICATION_API_KEY}
+#  profiles:
+#    active: ${ENV:local}
+  jackson:
+    default-property-inclusion: non_null
+    mapper:
+      ACCEPT_CASE_INSENSITIVE_ENUMS: true
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:16485/postgres}?currentSchema=${app.database.schema}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASS:server_bfmc}
+    driverClassName: org.postgresql.Driver
+  flyway:
+    clean-disabled: true
+
+app:
+  database:
+    schema: server
+
+#management:
+#  endpoints:
+#    web:
+#      base-path: /
+#      exposure:
+#        include: health, info, prometheus
+#  endpoint:
+#    health:
+#      show-details: always
+#  health:
+#    db:
+#      enabled: false
+#    defaults:
+#      enabled: true
+#
+#swagger:
+#  api-title: BFMC server
+#  api-description: Server for competition of BFMC
+#  api-version: 1.0.0
+#  xsession-param-enabled: true
+#  base-path: ${BASE_PATH:${server.servlet.context-path}}
+#  api-key: ${SWAGGER_API_KEY:}
+#  api-name: ${SWAGGER_API_NAME:}
+#
+#springdoc:
+#  paths-to-match: /**
+#  swagger-ui:
+#    doc-expansion: none
+#    operations-sorter: alpha
+#    tags-sorter: alpha
+#    config-url: ${swagger.base-path}/v3/api-docs/swagger-config
+#    url: ${swagger.base-path}/v3/api-docs
+#    validator-url: null
+#    oauth2-redirect-url: null
+#  writer-with-order-by-keys: true
