@@ -1,0 +1,83 @@
+plugins {
+    id 'org.springframework.boot' version "${spring_boot_version}"
+}
+
+apply plugin: 'org.springframework.boot'
+
+configurations {
+    configOnly {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+}
+
+dependencies {
+    //database
+    implementation group: 'org.postgresql', name: 'postgresql'
+    implementation group: 'org.flywaydb', name: 'flyway-database-postgresql'
+
+    // compile
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+
+    annotationProcessor group: 'org.springframework.boot', name: 'spring-boot-configuration-processor'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
+
+    annotationProcessor group: 'org.mapstruct', name: 'mapstruct-processor', version: map_struct_version
+    annotationProcessor group: 'org.projectlombok', name: 'lombok'
+    annotationProcessor group: 'org.projectlombok', name: 'lombok-mapstruct-binding', version: lombok_mapstruct_binding_version
+    compileOnly group: 'org.mapstruct', name: 'mapstruct', version: map_struct_version
+    compileOnly group: 'org.projectlombok', name: 'lombok'
+
+    // other
+    implementation group: 'jakarta.validation', name: 'jakarta.validation-api'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation'
+
+    // test
+    testAnnotationProcessor group: 'org.projectlombok', name: 'lombok'
+    testCompileOnly group: 'org.projectlombok', name: 'lombok'
+}
+
+bootJar {
+    archiveFileName = 'bfmc-server.jar'
+}
+
+//jacocoTestCoverageVerification {
+//    violationRules {
+//        rule {
+//            element = 'CLASS'
+//            limit {
+//                counter = 'LINE'
+//                minimum = 0.90
+//            }
+//            limit {
+//                counter = 'BRANCH'
+//                minimum = 0.90
+//            }
+//            excludes = [
+//                    'eu.inbank.dashboard.Application',
+//                    'eu.inbank.dashboard.sales.service.SalesCallingListProcessor',
+//                    'eu.inbank.dashboard.common.scheduled.DashboardQueueProcessor',
+//                    'eu.inbank.dashboard.sales.mapper.*Impl',
+//                    'eu.inbank.dashboard.common.mapper.*Impl',
+//                    'eu.inbank.dashboard.rental.mapper.*Impl',
+//            ]
+//        }
+//    }
+//}
+
+//tasks.register('extractCheckstyleConfig', Sync) {
+//    from {
+//        configurations.configOnly.collect { zipTree(it) }
+//    } {
+//        include 'checkstyle/checkstyle.xml'
+//    }
+//    into layout.buildDirectory.dir('generated')
+//}
+
+//tasks.named('checkstyleMain') {
+//    dependsOn(tasks.named('extractCheckstyleConfig'))
+//}
+
+//tasks.named('checkstyleTest') {
+//    dependsOn(tasks.named('extractCheckstyleConfig'))
+//}
