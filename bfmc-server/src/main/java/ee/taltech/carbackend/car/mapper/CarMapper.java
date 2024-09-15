@@ -9,4 +9,6 @@ import org.mapstruct.Mapper;
 public interface CarMapper {
 
   Car toDomain(CarEntity carEntity);
+
+  CarEntity toEntity(Car car);
 }

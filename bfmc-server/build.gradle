@@ -28,6 +28,14 @@ dependencies {
     compileOnly group: 'org.mapstruct', name: 'mapstruct', version: map_struct_version
     compileOnly group: 'org.projectlombok', name: 'lombok'
 
+    // security
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security'
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: jwt_version
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-impl', version: jwt_version
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: jwt_version
+    implementation group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: 1.68
+    testImplementation group: 'org.springframework.boot', name: 'spring-security-test'
+
     // other
     implementation group: 'jakarta.validation', name: 'jakarta.validation-api'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation'
