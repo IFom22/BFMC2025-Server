@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/session", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/v1/session", produces = APPLICATION_JSON_VALUE)
 public class SessionController {
 
   private final SessionService sessionService;
