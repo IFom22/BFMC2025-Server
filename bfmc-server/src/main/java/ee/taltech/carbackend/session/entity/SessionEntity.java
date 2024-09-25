@@ -1,13 +1,13 @@
 package ee.taltech.carbackend.session.entity;
 
 import static ee.taltech.carbackend.config.ServerServiceFlywayConfiguration.SCHEMA;
+import static jakarta.persistence.EnumType.STRING;
 
-import ee.taltech.carbackend.car.entity.CarEntity;
 import ee.taltech.carbackend.common.entity.BaseEntity;
+import ee.taltech.carbackend.session.enums.CompetitionType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 import java.time.Instant;
 import java.util.UUID;
@@ -26,8 +26,8 @@ public class SessionEntity extends BaseEntity {
 
   @Column(nullable = false, updatable = false)
   private UUID uuid;
-  @ManyToOne
-  @JoinColumn(name = "car_id")
-  private CarEntity car;
   private Instant createdAt;
+  private Instant ended;
+  @Enumerated(STRING)
+  private CompetitionType competitionType;
 }

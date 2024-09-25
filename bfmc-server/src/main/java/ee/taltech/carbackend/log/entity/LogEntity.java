@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.time.Instant;
 import java.util.UUID;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -29,8 +30,7 @@ public class LogEntity extends BaseEntity {
   @JoinColumn(name = "session_id")
   private SessionEntity session;
   private String message;
-  @Column(name = "class_сreator")
-  private String classCreator;
-  @Column(name = "function_сreator")
-  private String functionCreator;
+  private String createdInClass;
+  private String createdInFunction;
+  private Instant createdAt;
 }

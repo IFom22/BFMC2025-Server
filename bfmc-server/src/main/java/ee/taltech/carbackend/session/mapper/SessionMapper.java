@@ -14,7 +14,5 @@ public interface SessionMapper {
 
   Session toDomain(SessionEntity sessionEntity);
 
-  List<SessionResource> toResource(List<Session> sessions);
-
-  SessionResource toResource(Session session);
+  Session toDomain(SessionResource sessionResource);
 }

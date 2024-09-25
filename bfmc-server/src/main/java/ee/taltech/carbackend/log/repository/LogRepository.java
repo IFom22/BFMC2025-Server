@@ -16,18 +16,14 @@ import org.springframework.stereotype.Repository;
 public class LogRepository {
 
   private final LogJpaRepository jpaRepository;
-  private final LogMapper mapper;
+  private final LogMapper logMapper;
 
-  public List<Log> findAll() {
-    return mapper.toDomain(jpaRepository.findAll());
+  public List<Log> findLogs(UUID sessionUuid) {
+    return logMapper.toDomain(jpaRepository.findAllBySessionUuid(sessionUuid));
   }
 
-  public List<Log> findBySessionUuid(UUID sessionUuid) {
-    return mapper.toDomain(jpaRepository.findAllBySessionUuid(sessionUuid));
-  }
-
-  public void create(Log log) {
-    LogEntity logEntity = mapper.toEntity(log);
+  public void save(Log log) {
+    LogEntity logEntity = logMapper.toEntity(log);
     logEntity.setCreatedBy(TEMP_CREATED_BY);
     logEntity.setModifiedBy(TEMP_MODIFIED_BY);
     jpaRepository.save(logEntity);

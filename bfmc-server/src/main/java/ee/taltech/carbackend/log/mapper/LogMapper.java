@@ -10,11 +10,11 @@ import org.mapstruct.Mapper;
 @Mapper(config = MapperConfiguration.class)
 public interface LogMapper {
 
-  List<LogResource> toResource(List<Log> domains);
-
   List<Log> toDomain(List<LogEntity> entities);
 
   Log toDomain(LogResource resource);
 
   LogEntity toEntity(Log domain);
+
+  List<LogResource> toResource(List<Log> domain);
 }

@@ -1,6 +1,5 @@
 package ee.taltech.carbackend.log.controller;
 
-
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -28,19 +27,13 @@ public class LogController {
   private final LogService logService;
 
   @GetMapping("/{sessionUuid}")
-  public ResponseEntity<List<LogResource>> getLogsBySession(@PathVariable UUID sessionUuid) {
-    List<LogResource> logs = logMapper.toResource(logService.findAllBySessionUuid(sessionUuid));
-    return ok(logs);
-  }
-
-  @GetMapping
-  public ResponseEntity<List<LogResource>> getLogs() {
-    List<LogResource> logs = logMapper.toResource(logService.findAll());
+  public ResponseEntity<List<LogResource>> getLogs(@PathVariable UUID sessionUuid) {
+    List<LogResource> logs = logMapper.toResource(logService.getLogs(sessionUuid));
     return ok(logs);
   }
 
   @PostMapping("/{sessionUuid}/create")
-  public ResponseEntity<String> createLogs(
+  public ResponseEntity<String> createLog(
       @PathVariable UUID sessionUuid,
       @RequestBody LogResource logResource
   ) {

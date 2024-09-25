@@ -2,7 +2,6 @@ package ee.taltech.carbackend.session.service;
 
 import ee.taltech.carbackend.session.domain.Session;
 import ee.taltech.carbackend.session.repository.SessionRepository;
-import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,11 +12,11 @@ public class SessionService {
 
   private final SessionRepository sessionRepository;
 
-  public List<Session> getAllSessions() {
-    return sessionRepository.findAll();
+  public Session createSession(Session session) {
+    return sessionRepository.createSession(session);
   }
 
-  public Session createSession(UUID carUuid) {
-    return sessionRepository.create(carUuid);
+  public void stopSession(UUID sessionUuid) {
+    sessionRepository.stopSession(sessionUuid);
   }
 }

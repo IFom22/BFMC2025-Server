@@ -1,12 +1,12 @@
 package ee.taltech.carbackend.session.controller.resource;
 
+import ee.taltech.carbackend.session.enums.CompetitionType;
 import java.time.Instant;
-import java.util.UUID;
 import lombok.Value;
 
 @Value
 public class SessionResource {
 
-  UUID uuid;
   Instant createdAt;
+  CompetitionType competitionType;
 }
