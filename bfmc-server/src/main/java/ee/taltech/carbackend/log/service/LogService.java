@@ -1,6 +1,6 @@
 package ee.taltech.carbackend.log.service;
 
-import static java.util.Objects.nonNull;
+import static ee.taltech.carbackend.session.enums.SessionStatus.STOPPED;
 import static java.util.UUID.randomUUID;
 
 import ee.taltech.carbackend.log.domain.Log;
@@ -24,12 +24,15 @@ public class LogService {
   }
 
   public Log createLog(UUID sessionUuid, Log log) {
-    Session session = sessionRepository.findByUuid(sessionUuid);
-    if (nonNull(session.getEnded())) {
-      throw new RuntimeException("Ended session");
+    Session session = sessionRepository.getByUuid(sessionUuid);
+
+    if (session.getSessionStatus().equals(STOPPED)) {
+      throw new RuntimeException("Stopped session");
     }
+
     log.setUuid(randomUUID());
     log.setSession(session);
+
     return logRepository.save(log);
   }
 }
