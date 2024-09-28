@@ -23,7 +23,6 @@ public class LogWebSocketController {
   private final LogService logService;
 
   @MessageMapping("/create")
-  @SendTo("/topic/log") // TODO Do we need it? (send logs some where)
   public ResponseEntity<LogResource> createLog(
       @RequestBody LogResource logResource
   ) {
