@@ -3,7 +3,6 @@ package ee.taltech.carbackend.session.repository;
 import static ee.taltech.carbackend.util.Constants.TEMP_CREATED_BY;
 import static ee.taltech.carbackend.util.Constants.TEMP_MODIFIED_BY;
 import static java.time.Instant.now;
-import static java.util.UUID.randomUUID;
 
 import ee.taltech.carbackend.session.domain.Session;
 import ee.taltech.carbackend.session.entity.SessionEntity;
@@ -24,13 +23,9 @@ public class SessionRepository {
   }
 
   public Session createSession(Session session) {
-    SessionEntity sessionEntity = SessionEntity.builder()
-        .uuid(randomUUID())
-        .createdAt(session.getCreatedAt())
-        .competitionType(session.getCompetitionType())
-        .createdBy(TEMP_CREATED_BY)
-        .modifiedBy(TEMP_MODIFIED_BY)
-        .build();
+    SessionEntity sessionEntity = sessionMapper.toEntity(session);
+    sessionEntity.setCreatedBy(TEMP_CREATED_BY);
+    sessionEntity.setModifiedBy(TEMP_MODIFIED_BY);
     return sessionMapper.toDomain(sessionJpaRepository.save(sessionEntity));
   }
 

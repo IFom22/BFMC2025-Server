@@ -22,10 +22,10 @@ public class LogRepository {
     return logMapper.toDomain(jpaRepository.findAllBySessionUuid(sessionUuid));
   }
 
-  public void save(Log log) {
+  public Log save(Log log) {
     LogEntity logEntity = logMapper.toEntity(log);
     logEntity.setCreatedBy(TEMP_CREATED_BY);
     logEntity.setModifiedBy(TEMP_MODIFIED_BY);
-    jpaRepository.save(logEntity);
+    return logMapper.toDomain(jpaRepository.save(logEntity));
   }
 }

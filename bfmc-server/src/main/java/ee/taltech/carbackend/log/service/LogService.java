@@ -23,13 +23,13 @@ public class LogService {
     return logRepository.findLogs(sessionUuid);
   }
 
-  public void createLog(UUID sessionUuid, Log log) {
+  public Log createLog(UUID sessionUuid, Log log) {
     Session session = sessionRepository.findByUuid(sessionUuid);
     if (nonNull(session.getEnded())) {
       throw new RuntimeException("Ended session");
     }
     log.setUuid(randomUUID());
     log.setSession(session);
-    logRepository.save(log);
+    return logRepository.save(log);
   }
 }
