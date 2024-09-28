@@ -5,6 +5,7 @@ import static jakarta.persistence.EnumType.STRING;
 
 import ee.taltech.carbackend.common.entity.BaseEntity;
 import ee.taltech.carbackend.session.enums.CompetitionType;
+import ee.taltech.carbackend.session.enums.SessionStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
@@ -27,7 +28,8 @@ public class SessionEntity extends BaseEntity {
   @Column(nullable = false, updatable = false)
   private UUID uuid;
   private Instant createdAt;
-  private Instant ended;
+  @Enumerated(STRING)
+  private SessionStatus sessionStatus;
   @Enumerated(STRING)
   private CompetitionType competitionType;
 }

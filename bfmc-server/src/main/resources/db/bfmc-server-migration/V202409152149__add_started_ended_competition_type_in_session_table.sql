@@ -1,3 +1,3 @@
 ALTER TABLE server.session
-    ADD ended TIMESTAMPTZ,
+    ADD status           VARCHAR NOT NULL,
     ADD competition_type VARCHAR NOT NULL;
