@@ -29,7 +29,7 @@ public class SessionEntity extends BaseEntity {
   private UUID uuid;
   private Instant createdAt;
   @Enumerated(STRING)
-  private SessionStatus sessionStatus;
+  private SessionStatus status;
   @Enumerated(STRING)
   private CompetitionType competitionType;
 }

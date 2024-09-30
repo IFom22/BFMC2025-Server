@@ -29,7 +29,7 @@ public class SessionService {
 
   public UUID createSession(Session session) {
     session.setUuid(randomUUID());
-    session.setSessionStatus(STARTED);
+    session.setStatus(STARTED);
     Session savedSession = sessionRepository.save(session);
 
     sendStatusToCar(STARTED);
@@ -41,7 +41,7 @@ public class SessionService {
 
   public void pauseSession(UUID sessionUuid) {
     Session session = sessionRepository.getByUuid(sessionUuid);
-    session.setSessionStatus(PAUSED);
+    session.setStatus(PAUSED);
     sessionRepository.save(session);
 
     sendStatusToCar(PAUSED);
@@ -49,7 +49,7 @@ public class SessionService {
 
   public void restartSession(UUID sessionUuid) {
     Session session = sessionRepository.getByUuid(sessionUuid);
-    session.setSessionStatus(RESTARTED);
+    session.setStatus(RESTARTED);
     sessionRepository.save(session);
 
     sendStatusToCar(RESTARTED);
@@ -57,7 +57,7 @@ public class SessionService {
 
   public void stopSession(UUID sessionUuid) {
     Session session = sessionRepository.getByUuid(sessionUuid);
-    session.setSessionStatus(STOPPED);
+    session.setStatus(STOPPED);
     sessionRepository.save(session);
 
     sendStatusToCar(STOPPED);
