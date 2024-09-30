@@ -1,6 +1,11 @@
 server:
   servlet.context-path: /bfmc-server
   port: 8214
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-password: webrtc
+    keyStoreType: PKCS12
+    keyAlias: webrtc
 
 spring:
   main:

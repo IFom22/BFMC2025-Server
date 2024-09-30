@@ -14,6 +14,6 @@ public class Session {
   private Long id;
   private UUID uuid;
   private Instant createdAt;
-  private SessionStatus sessionStatus;
+  private SessionStatus status;
   private CompetitionType competitionType;
 }

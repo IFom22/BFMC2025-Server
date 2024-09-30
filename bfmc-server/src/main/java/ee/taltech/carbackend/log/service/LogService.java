@@ -26,7 +26,7 @@ public class LogService {
   public Log createLog(UUID sessionUuid, Log log) {
     Session session = sessionRepository.getByUuid(sessionUuid);
 
-    if (session.getSessionStatus().equals(STOPPED)) {
+    if (session.getStatus().equals(STOPPED)) {
       throw new RuntimeException("Stopped session");
     }
 
